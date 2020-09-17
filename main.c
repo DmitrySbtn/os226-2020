@@ -27,13 +27,13 @@ int main(int argc, char* argv[]) {
 	char* str2 = NULL;
 
 	while (fgets(in, sizeof in, stdin)) {
-        char* mark1 = strtok(in, "\n;");
+        char* mark1 = strtok_r(in, "\n;", &str);
 		while (mark1 != NULL) {
             argc = 0;
-			char* mark2 = strtok(mark1, " ");
+			char* mark2 = strtok_r(mark1, " ", &str2);
 			while (mark2 != NULL) {
 				argv[argc++] = mark2;
-				mark2 = strtok(NULL, " ");
+				mark2 = strtok_r(NULL, " ", &str2);
 			}
 
 			if (!strcmp(argv[0], "retcode"))
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 			else
 				printf("%s", "\nUnknown command\n");
 
-			mark1 = strtok(NULL, "\n;");
+			mark1 = strtok_r(NULL, "\n;", &str);
 		}
 	}
 	return 0;
